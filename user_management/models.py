@@ -29,11 +29,12 @@ class MyUserManager(BaseUserManager):
             password=password,
         )
         user.is_admin = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=15,unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -42,6 +43,7 @@ class CustomUser(AbstractBaseUser):
 
     class Meta:
         verbose_name = "user"
+        db_table = 'auth_custom_user'
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["password"]
