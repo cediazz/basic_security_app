@@ -38,7 +38,7 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=15,unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='users_image', default='Users Image/default-avatar.png')
+    image = models.ImageField(default='default-avatar.png')
     objects = MyUserManager()
 
     class Meta:
