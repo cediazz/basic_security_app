@@ -1,5 +1,19 @@
 from rest_framework.serializers import ModelSerializer
 from .models import CustomUser
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+        access = refresh.access_token
+        # Agregar tiempo de expiración
+        data['expiration'] = access.payload['exp']
+        data["username"] = self.user.username
+        return data
+
 
 class UserSerializer(ModelSerializer):
     class Meta:
