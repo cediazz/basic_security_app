@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'user_management',
+    'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {
