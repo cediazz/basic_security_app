@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from .models import CustomUser
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from datetime import timedelta
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
@@ -10,7 +11,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         refresh = self.get_token(self.user)
         access = refresh.access_token
         # Agregar tiempo de expiración
-        data['expiration'] = access.payload['exp']
+        data['expiration'] = access.payload['exp']  #agregar swager 
         data["username"] = self.user.username
         return data
 
